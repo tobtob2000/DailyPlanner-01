@@ -1,11 +1,50 @@
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using System.Net.Http.Headers;
+using System.Text;
+using DailyPlannerApp.Models;
+using DailyPlannerApp.Services;
+
+var envFile = Path.Combine(Directory.GetCurrentDirectory(), ".env");
+if (File.Exists(envFile))
+{
+    foreach (var line in File.ReadAllLines(envFile))
+    {
+        var trimmed = line.Trim();
+        if (string.IsNullOrEmpty(trimmed) || trimmed.StartsWith("#"))
+        {
+            continue;
+        }
+
+        var index = trimmed.IndexOf('=');
+        if (index <= 0)
+        {
+            continue;
+        }
+
+        var name = trimmed[..index].Trim();
+        var value = trimmed[(index + 1)..];
+        Environment.SetEnvironmentVariable(name, value);
+    }
+}
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddControllers();
+builder.Services.Configure<AzureDevOpsOptions>(builder.Configuration.GetSection("AzureDevOps"));
+builder.Services.AddHttpClient<AzureDevOpsService>(client =>
+{
+    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    var pat = builder.Configuration.GetValue<string>("AzureDevOps:PersonalAccessToken");
+    if (!string.IsNullOrEmpty(pat))
+    {
+        var auth = Convert.ToBase64String(Encoding.ASCII.GetBytes($":{pat}"));
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", auth);
+    }
+});
 
 var app = builder.Build();
 
@@ -31,6 +70,8 @@ if (Directory.Exists(clientDist))
 }
 
 app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
 
 var summaries = new[]
 {
