@@ -1,0 +1,12 @@
+<div class="app-shell">
+  <header class="app-header">
+    <div class="app-brand">Workspace</div>
+    <nav class="app-nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Notes</a>
+      <a routerLink="/tasks" routerLinkActive="active">Tasks</a>
+    </nav>
+  </header>
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>

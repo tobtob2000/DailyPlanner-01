@@ -1,0 +1,64 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--card-foreground);
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(253, 250, 243, 0.96);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+}
+
+.app-brand {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--primary);
+}
+
+.app-nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.app-nav a {
+  padding: 0.75rem 1rem;
+  border-radius: 0.9rem;
+  color: var(--muted-foreground);
+  background: var(--secondary);
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.app-nav a:hover {
+  background: rgba(232, 226, 212, 0.9);
+  color: var(--card-foreground);
+}
+
+.app-nav a.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.app-main {
+  flex: 1;
+  padding: 1.5rem 1.5rem 2rem;
+}

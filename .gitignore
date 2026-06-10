@@ -1,0 +1,52 @@
+# .NET build artifacts
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opencover.xml
+*.coverage
+TestResults/
+[Pp]ublish/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+!packages/build/
+
+# ASP.NET
+wwwroot/
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# Visual Studio Code
+.vscode/
+
+# Angular / Node build artifacts
+node_modules/
+dist/
+.angular/
+.cache/
+
+# Angular specific
+ClientApp/dist/
+ClientApp/.angular/
+ClientApp/node_modules/
+
+# Environment / secrets
+appsettings.Development.json
+*.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db

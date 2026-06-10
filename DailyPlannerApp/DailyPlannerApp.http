@@ -1,0 +1,6 @@
+@DailyPlannerApp_HostAddress = http://localhost:5015
+
+GET {{DailyPlannerApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
